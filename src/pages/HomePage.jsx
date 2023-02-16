@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
+import { SearchContext } from "../App";
 
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
@@ -6,7 +8,8 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Sort from "../components/Sort";
 
-const HomePage = ({ searchValue, setSearchValue }) => {
+const HomePage = () => {
+  const { searchValue } = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsloading] = useState(false);
@@ -16,7 +19,7 @@ const HomePage = ({ searchValue, setSearchValue }) => {
     typeProperty: "rating",
   });
 
-  const category = activeCategory ? `category=${activeCategory}` : "";
+  const category = activeCategory ? `&category=${activeCategory}` : "";
   const order = selected.typeProperty.includes("-") ? "asc" : "desc";
   const sortBy = selected.typeProperty.replace("-", "");
   const search = searchValue ? `&search=${searchValue}` : "";
