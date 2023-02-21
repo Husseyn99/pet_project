@@ -1,37 +1,43 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const Sort = ({ selected, setSelected }) => {
+import { setSort } from "../redux/slices/filterSlice";
+
+const sortlist = [
+  {
+    name: "популярности(DESC)",
+    typeProperty: "rating",
+  },
+  {
+    name: "цене(DESC)",
+    typeProperty: "price",
+  },
+  {
+    name: "алфавиту(DESC)",
+    typeProperty: "title",
+  },
+  {
+    name: "популярности(ASC)",
+    typeProperty: "-rating",
+  },
+  {
+    name: "цене(ASC)",
+    typeProperty: "-price",
+  },
+  {
+    name: "алфавиту(ASC)",
+    typeProperty: "-title",
+  },
+];
+
+const Sort = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const sortlist = [
-    {
-      name: "популярности(DESC)",
-      typeProperty: "rating",
-    },
-    {
-      name: "цене(DESC)",
-      typeProperty: "price",
-    },
-    {
-      name: "алфавиту(DESC)",
-      typeProperty: "title",
-    },
-    {
-      name: "популярности(ASC)",
-      typeProperty: "-rating",
-    },
-    {
-      name: "цене(ASC)",
-      typeProperty: "-price",
-    },
-    {
-      name: "алфавиту(ASC)",
-      typeProperty: "-title",
-    },
-  ];
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
 
   const handleSortList = (obj) => {
-    setSelected(obj);
+    dispatch(setSort(obj));
     setIsVisible(false);
   };
 
@@ -51,7 +57,7 @@ const Sort = ({ selected, setSelected }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{selected.name}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
@@ -61,7 +67,7 @@ const Sort = ({ selected, setSelected }) => {
                 <li
                   key={obj.typeProperty}
                   onClick={() => handleSortList(obj)}
-                  className={selected.name === obj.name ? "active" : ""}
+                  className={sort.name === obj.name ? "active" : ""}
                 >
                   {obj.name}
                 </li>

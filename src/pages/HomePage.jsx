@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { SearchContext } from "../App";
 
@@ -13,15 +14,12 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsloading] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [selected, setSelected] = useState({
-    name: "популярности",
-    typeProperty: "rating",
-  });
+
+  const { activeCategory, sort } = useSelector((state) => state.filter);
 
   const category = activeCategory ? `&category=${activeCategory}` : "";
-  const order = selected.typeProperty.includes("-") ? "asc" : "desc";
-  const sortBy = selected.typeProperty.replace("-", "");
+  const order = sort.typeProperty.includes("-") ? "asc" : "desc";
+  const sortBy = sort.typeProperty.replace("-", "");
   const search = searchValue ? `&search=${searchValue}` : "";
 
   const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
@@ -41,11 +39,8 @@ const HomePage = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-        <Sort selected={selected} setSelected={setSelected} />
+        <Categories />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
