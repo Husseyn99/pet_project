@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 
 import { SearchContext } from "../../App";
 
@@ -8,7 +9,29 @@ import deleteIcon from "../../assets/img/delete_icon.png";
 import styles from "./Search.module.scss";
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const { setSearchValue } = useContext(SearchContext);
+
+  const [value, setValue] = useState("");
+
+  const inputRef = useRef();
+
+  const handleSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 500),
+    []
+  );
+
+  const handleClearInput = () => {
+    setValue("");
+    setSearchValue("");
+    inputRef.current.focus();
+  };
+
+  const handleChangeInput = (e) => {
+    setValue(e.target.value);
+    handleSearchValue(e.target.value);
+  };
 
   return (
     <div className={styles.root}>
@@ -16,14 +39,15 @@ const Search = () => {
         <img src={searchIcon} alt="search_icon" />
       </div>
       <input
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        ref={inputRef}
+        value={value}
+        onChange={(e) => handleChangeInput(e)}
         className={styles.input}
         type="text"
         placeholder="Поиск пицц..."
       />
-      {searchValue && (
-        <div onClick={() => setSearchValue("")}>
+      {value && (
+        <div onClick={handleClearInput}>
           <img src={deleteIcon} alt="delete_icon" />
         </div>
       )}
