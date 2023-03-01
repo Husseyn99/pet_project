@@ -15,7 +15,7 @@ const Search = () => {
 
   const inputRef = useRef();
 
-  const handleSearchValue = useCallback(
+  const handleSetSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
     }, 500),
@@ -30,7 +30,7 @@ const Search = () => {
 
   const handleChangeInput = (e) => {
     setValue(e.target.value);
-    handleSearchValue(e.target.value);
+    handleSetSearchValue(e.target.value);
   };
 
   return (
