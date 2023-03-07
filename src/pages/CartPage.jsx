@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import EmptyCartPage from "./EmptyCartPage";
 
-import { clearCart } from "../redux/slices/cartSlice";
+import { clearCart, selectCart } from "../redux/slices/cartSlice";
 
 const CartPage = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice } = useSelector(selectCart);
 
   const itemAmount = items?.reduce((sum, item) => item.count + sum, 0);
 

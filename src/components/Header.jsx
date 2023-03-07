@@ -6,8 +6,10 @@ import Search from "./Search";
 
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 
+import { selectCart } from "../redux/slices/cartSlice";
+
 const Header = () => {
-  const { totalPrice, items } = useSelector((state) => state.cart);
+  const { totalPrice, items } = useSelector(selectCart);
 
   const itemTotalAmount = items?.reduce((sum, item) => item.count + sum, 0);
 
