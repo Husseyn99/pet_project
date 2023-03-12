@@ -7,10 +7,13 @@ import EmptyCartPage from "./EmptyCartPage";
 
 import { clearCart, selectCart } from "../redux/slices/cartSlice";
 
-const CartPage = () => {
+const CartPage: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
 
-  const itemAmount = items?.reduce((sum, item) => item.count + sum, 0);
+  const itemAmount = items?.reduce(
+    (sum: number, item: any) => item.count + sum,
+    0
+  );
 
   const dispatch = useDispatch();
 
@@ -102,7 +105,7 @@ const CartPage = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item, idx) => {
+          {items.map((item: any, idx: number) => {
             return (
               <CartItem
                 key={item.id}

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectFilter, setCategory } from "../redux/slices/filterSlice";
 
-const Categories = () => {
+const Categories: React.FC = () => {
   const categories = [
     "Все",
     "Мясные",

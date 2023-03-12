@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import NotFound from "./components/NotFound";
-import PizzaPage from "./components/PizzaPage";
+import PizzaPage from "./pages/PizzaPage";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 

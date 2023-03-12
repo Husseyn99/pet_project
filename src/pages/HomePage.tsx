@@ -16,7 +16,7 @@ import {
 } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,12 +36,13 @@ const HomePage = () => {
 
   const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
-  const onChangePage = (page) => {
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
   const getPizzas = () => {
     dispatch(
+      //@ts-ignore
       fetchPizzas({ category, order, sortProperty, search, currentPage })
     );
   };
@@ -103,7 +104,7 @@ const HomePage = () => {
       <div className="content__items">
         {status === "loading"
           ? skeleton
-          : items.map((pizza) => {
+          : items.map((pizza: any) => {
               return <PizzaBlock key={pizza.id} {...pizza} />;
             })}
       </div>
