@@ -49,8 +49,8 @@ const Sort: React.FC = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.composedPath().includes(popupRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (popupRef.current && !e.composedPath().includes(popupRef.current)) {
         setIsVisible(false);
       }
     };

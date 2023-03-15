@@ -29,7 +29,7 @@ const Search: React.FC = () => {
     inputRef.current?.focus();
   };
 
-  const handleChangeInput = (e: any) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     handleSetSearchValue(e.target.value);
   };

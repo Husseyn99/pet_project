@@ -11,6 +11,7 @@ import Sort, { sortlist } from "../components/Sort";
 
 import {
   selectFilter,
+  setCategory,
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
@@ -38,6 +39,10 @@ const HomePage: React.FC = () => {
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
+  };
+
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategory(idx));
   };
 
   const getPizzas = () => {
@@ -91,7 +96,10 @@ const HomePage: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
+        <Categories
+          activeCategory={activeCategory}
+          setCategory={onChangeCategory}
+        />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
