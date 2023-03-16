@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import {
+  CartItemType,
   itemDecrease,
   itemIncrease,
   removeItem,
@@ -40,7 +41,7 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const handleRemoveItem = () => {
     if (window.confirm("Вы точно хотите убрать пиццу ?")) {
-      dispatch(removeItem({ id, idx }));
+      dispatch(removeItem({ id, idx } as CartItemType));
     }
   };
 
