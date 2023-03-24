@@ -54,10 +54,8 @@ export const cartSlice = createSlice({
     itemDecrease: (state, action: PayloadAction<string>) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload) {
-          if (item.count > 0) {
-            item.count--;
-            state.totalPrice -= item.price;
-          }
+          item.count--;
+          state.totalPrice -= item.price;
         }
         return item;
       });

@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
-  selectSort,
   setSort,
   SortPropertyEnum,
+  SortType,
 } from "../redux/slices/filterSlice";
 
 type SortListItem = {
@@ -12,10 +12,14 @@ type SortListItem = {
   sortProperty: SortPropertyEnum;
 };
 
+type SortProps = {
+  sort: SortType;
+};
+
 export const sortlist: SortListItem[] = [
   {
     name: "популярности(DESC)",
-    sortProperty: SortPropertyEnum.PRICE_DESC,
+    sortProperty: SortPropertyEnum.RATING_DESC,
   },
   {
     name: "цене(DESC)",
@@ -39,13 +43,12 @@ export const sortlist: SortListItem[] = [
   },
 ];
 
-const Sort: React.FC = () => {
+const Sort: React.FC<SortProps> = React.memo(({ sort }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const popupRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
 
   const handleSortList = (obj: SortListItem) => {
     dispatch(setSort(obj));
@@ -90,7 +93,7 @@ const Sort: React.FC = () => {
             {sortlist.map((obj) => {
               return (
                 <li
-                  key={obj.sortProperty}
+                  key={obj.name}
                   onClick={() => handleSortList(obj)}
                   className={sort.name === obj.name ? "active" : ""}
                 >
@@ -103,6 +106,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

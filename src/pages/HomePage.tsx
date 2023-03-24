@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import qs from "qs";
@@ -47,9 +47,9 @@ const HomePage: React.FC = () => {
     dispatch(setCurrentPage(page));
   };
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategory(idx));
-  };
+  }, []);
 
   const getPizzas = () => {
     dispatch(
@@ -119,7 +119,7 @@ const HomePage: React.FC = () => {
           activeCategory={activeCategory}
           setCategory={onChangeCategory}
         />
-        <Sort />
+        <Sort sort={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" && (
